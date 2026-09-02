@@ -1,0 +1,5661 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>FGV DICOM | PROCESSOS</title>
+
+
+<style>
+
+/* =========================================================
+   FGV DICOM | PROCESSOS
+   ========================================================= */
+
+:root {
+
+    --blue-dark: #003A79;
+    --blue: #008BC9;
+    --blue-light: #73BFE8;
+    --navy: #002D4D;
+
+    --gray-dark: #5C5B5F;
+    --gray: #88868B;
+    --gray-mid: #AFAEB4;
+    --gray-light: #D7D9DD;
+
+    --bg: #EEF2F5;
+    --surface: #FFFFFF;
+    --surface-soft: #F5F8FA;
+
+    --success: #3BAE96;
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+
+    --shadow:
+        0 14px 40px rgba(0,45,77,.08);
+
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    margin: 0;
+
+    background: var(--bg);
+
+    color: var(--gray-dark);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    transition:
+        background .25s ease,
+        color .25s ease;
+
+}
+
+
+button,
+input,
+select {
+
+    font-family: inherit;
+
+}
+
+
+button {
+
+    cursor: pointer;
+
+}
+
+
+/* =========================================================
+   MODO NOTURNO
+   ========================================================= */
+
+body.dark {
+
+    --bg: #071A2A;
+
+    --surface: #102A43;
+
+    --surface-soft: #18384F;
+
+    --gray-dark: #DCE6EC;
+
+    --gray: #B9C5CE;
+
+    --gray-mid: #94A3AD;
+
+    --gray-light: #456277;
+
+    --blue-dark: #8FC7F0;
+
+    --blue: #5DB8E5;
+
+    --blue-light: #A8DDF6;
+
+}
+
+
+body.dark .document-paper {
+
+    background:
+        #F7F9FB;
+
+}
+
+
+body.dark .document-link {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-decoration: none;
+
+    color: inherit;
+
+}
+
+
+.document-link {
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.document-link img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform .25s ease;
+}
+
+.document-link:hover img {
+    transform: scale(1.025);
+}
+
+
+.document-link:focus {
+
+    outline: 2px solid var(--blue);
+
+    outline-offset: 3px;
+
+}
+
+
+.document-preview {
+
+    background:
+        #102A43;
+
+}
+
+
+body.dark .project:hover {
+
+    background:
+        #18384F;
+
+}
+
+
+/* =========================================================
+   ESTRUTURA EXTERNA
+   ========================================================= */
+
+.outer {
+
+    width:
+        min(
+            1400px,
+            calc(100% - 42px)
+        );
+
+    margin:
+        25px auto
+        65px;
+
+}
+
+
+/* =========================================================
+   TOPO
+   ========================================================= */
+
+.top {
+
+    display:
+        flex;
+
+    align-items:
+        flex-end;
+
+}
+
+
+/* =========================================================
+   IDENTIFICAÇÃO
+   ========================================================= */
+
+.file-label {
+
+    height:
+        78px;
+
+    min-width:
+        350px;
+
+    padding:
+        0
+        28px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid
+        var(--blue-dark);
+
+    border-bottom:
+        none;
+
+    position:
+        relative;
+
+    border-radius:
+        18px
+        18px
+        0
+        0;
+
+}
+
+
+.file-label::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        92px;
+
+    height:
+        11px;
+
+    left:
+        20px;
+
+    top:
+        -12px;
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid
+        var(--blue-dark);
+
+    border-bottom:
+        none;
+
+    border-radius:
+        8px
+        8px
+        0
+        0;
+
+}
+
+
+.fgv-word {
+
+    color:
+        var(--blue-dark);
+
+    font-size:
+        34px;
+
+    line-height:
+        1;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        -.075em;
+
+}
+
+
+.file-separator {
+
+    width:
+        2px;
+
+    height:
+        39px;
+
+    margin:
+        0
+        18px;
+
+    background:
+        var(--blue-light);
+
+}
+
+
+.area-name {
+
+    color:
+        var(--gray-dark);
+
+    font-size:
+        12px;
+
+    line-height:
+        1.25;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        .07em;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+/* =========================================================
+   NAVEGAÇÃO
+   ========================================================= */
+
+.navigation {
+
+    height:
+        78px;
+
+    flex:
+        1;
+
+    display:
+        flex;
+
+    align-items:
+        flex-end;
+
+    gap:
+        7px;
+
+    padding:
+        0
+        8px;
+
+}
+
+
+.navigation button {
+
+    height:
+        48px;
+
+    min-width:
+        128px;
+
+    padding:
+        0
+        22px;
+
+    border:
+        1px solid
+        var(--gray-light);
+
+    border-radius:
+        14px
+        14px
+        0
+        0;
+
+    border-bottom:
+        none;
+
+    background:
+        var(--surface-soft);
+
+    color:
+        var(--gray-dark);
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        .12em;
+
+    text-transform:
+        uppercase;
+
+    position:
+        relative;
+
+    transition:
+        .2s ease;
+
+}
+
+
+.navigation button:hover {
+
+    color:
+        var(--blue-dark);
+
+    background:
+        var(--surface);
+
+}
+
+
+.navigation button.active {
+
+    height:
+        57px;
+
+    color:
+        var(--blue-dark);
+
+    background:
+        var(--surface);
+
+    border-color:
+        var(--blue-dark);
+
+}
+
+
+.navigation button.active::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        19px;
+
+    right:
+        19px;
+
+    bottom:
+        0;
+
+    height:
+        5px;
+
+    border-radius:
+        5px
+        5px
+        0
+        0;
+
+    background:
+        var(--blue);
+
+}
+
+
+/* =========================================================
+   BOTÃO MODO
+   ========================================================= */
+
+.theme-button {
+
+    width:
+        43px;
+
+    height:
+        43px;
+
+    flex:
+        0
+        0
+        auto;
+
+    align-self:
+        center;
+
+    margin:
+        0
+        9px;
+
+    border:
+        1px solid
+        var(--gray-light);
+
+    border-radius:
+        50%;
+
+    background:
+        var(--surface-soft);
+
+    color:
+        var(--blue-dark);
+
+    font-size:
+        18px;
+
+    transition:
+        .2s;
+
+}
+
+
+.theme-button:hover {
+
+    border-color:
+        var(--blue);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+/* =========================================================
+   FOLHA
+   ========================================================= */
+
+.file {
+
+    position:
+        relative;
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid
+        var(--blue-dark);
+
+    border-top:
+        none;
+
+    min-height:
+        850px;
+
+    overflow:
+        hidden;
+
+    box-shadow:
+        var(--shadow);
+
+    border-radius:
+        0
+        0
+        24px
+        24px;
+
+}
+
+
+.file::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        16px;
+
+    left:
+        0;
+
+    right:
+        0;
+
+    height:
+        2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue-dark),
+            var(--blue),
+            var(--blue-light),
+            transparent
+        );
+
+}
+
+
+/* =========================================================
+   PÁGINAS
+   ========================================================= */
+
+.page {
+
+    padding:
+        66px
+        70px
+        90px;
+
+}
+
+
+.page[hidden] {
+
+    display:
+        none;
+
+}
+
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+.home-intro {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1.45fr
+        .70fr;
+
+    gap:
+        72px;
+
+    padding-bottom:
+        48px;
+
+    border-bottom:
+        1px solid
+        var(--gray-light);
+
+}
+
+
+.eyebrow {
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        .16em;
+
+    text-transform:
+        uppercase;
+
+    color:
+        var(--blue);
+
+}
+
+
+.home-title {
+
+    margin:
+        12px
+        0
+        19px;
+
+    font-size:
+        82px;
+
+    font-weight:
+        800;
+
+    line-height:
+        .88;
+
+    letter-spacing:
+        -.065em;
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+.home-text {
+
+    margin:
+        0;
+
+    max-width:
+        740px;
+
+    font-size:
+        20px;
+
+    line-height:
+        1.48;
+
+    color:
+        var(--gray-dark);
+
+}
+
+
+/* =========================================================
+   EQUIPE
+   ========================================================= */
+
+.team {
+
+    padding-left:
+        34px;
+
+    border-left:
+        1px solid
+        var(--gray-light);
+
+}
+
+
+.team-heading {
+
+    margin-bottom:
+        19px;
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        .15em;
+
+    text-transform:
+        uppercase;
+
+    color:
+        var(--gray-dark);
+
+}
+
+
+.people {
+
+    display:
+        flex;
+
+    gap:
+        17px;
+
+    flex-wrap:
+        wrap;
+
+}
+
+
+.person {
+
+    width:
+        93px;
+
+    text-align:
+        center;
+
+}
+
+
+.person-photo {
+
+    width:
+        82px;
+
+    height:
+        82px;
+
+    margin:
+        auto;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        50%;
+
+    border:
+        2px solid
+        var(--blue-dark);
+
+    background:
+        var(--gray-light);
+
+}
+
+
+.person-photo img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    display:
+        block;
+
+}
+
+
+.person-name {
+
+    margin-top:
+        10px;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.2;
+
+    font-weight:
+        700;
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+.person-role {
+
+    margin-top:
+        4px;
+
+    font-size:
+        8px;
+
+    letter-spacing:
+        .08em;
+
+    text-transform:
+        uppercase;
+
+    color:
+        var(--gray);
+
+}
+
+
+/* =========================================================
+   SEÇÃO
+   ========================================================= */
+
+.section {
+
+    margin-top:
+        48px;
+
+}
+
+
+.section-heading {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        baseline;
+
+    margin-bottom:
+        14px;
+
+}
+
+
+.section-heading h2 {
+
+    margin:
+        0;
+
+    font-size:
+        29px;
+
+    line-height:
+        1;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        -.025em;
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+.section-heading span {
+
+    color:
+        var(--gray);
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        .12em;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+/* =========================================================
+   FILTROS
+   ========================================================= */
+
+.filter-bar {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(210px,1.4fr)
+        repeat(3,minmax(135px,.55fr))
+        auto;
+
+    gap:
+        8px;
+
+    padding:
+        12px;
+
+    margin-bottom:
+        17px;
+
+    background:
+        var(--surface-soft);
+
+    border:
+        1px solid
+        var(--gray-light);
+
+    border-radius:
+        16px;
+
+}
+
+
+.filter {
+
+    height:
+        39px;
+
+    padding:
+        0
+        13px;
+
+    border:
+        1px solid
+        var(--gray-light);
+
+    border-radius:
+        999px;
+
+    background:
+        var(--surface);
+
+    color:
+        var(--gray-dark);
+
+    font-size:
+        10px;
+
+    outline:
+        none;
+
+}
+
+
+.filter:focus {
+
+    border-color:
+        var(--blue);
+
+    box-shadow:
+        0
+        0
+        0
+        3px
+        rgba(0,139,201,.10);
+
+}
+
+
+.filter-clear {
+
+    height:
+        39px;
+
+    padding:
+        0
+        14px;
+
+    border:
+        1px solid
+        var(--blue);
+
+    border-radius:
+        999px;
+
+    background:
+        transparent;
+
+    color:
+        var(--blue-dark);
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        .08em;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.filter-clear:hover {
+
+    background:
+        var(--blue-dark);
+
+    color:
+        var(--surface);
+
+}
+
+
+.filter-count {
+
+    grid-column:
+        1 / -1;
+
+    font-size:
+        9px;
+
+    color:
+        var(--gray);
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .07em;
+
+}
+
+
+/* =========================================================
+   PROJETOS
+   ========================================================= */
+
+.project-list {
+
+    border-top:
+        1px solid
+        var(--gray-light);
+
+}
+
+
+.project-row {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        44px
+        minmax(0,1fr)
+        155px
+        125px;
+
+    gap:
+        18px;
+
+    align-items:
+        center;
+
+    padding:
+        22px
+        10px;
+
+    border-bottom:
+        1px solid
+        var(--gray-light);
+
+    cursor:
+        pointer;
+
+    transition:
+        .2s ease;
+
+}
+
+
+.project-row:hover {
+
+    background:
+        var(--surface-soft);
+
+    transform:
+        translateX(4px);
+
+}
+
+
+.project-number {
+
+    font-size:
+        13px;
+
+    font-weight:
+        800;
+
+    color:
+        var(--blue);
+
+}
+
+
+.project-name {
+
+    font-size:
+        20px;
+
+    line-height:
+        1.12;
+
+    font-weight:
+        800;
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+.project-description {
+
+    margin-top:
+        7px;
+
+    max-width:
+        760px;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.4;
+
+    color:
+        var(--gray-dark);
+
+}
+
+
+.project-status {
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .08em;
+
+}
+
+
+.status-dot {
+
+    display:
+        inline-block;
+
+    width:
+        9px;
+
+    height:
+        9px;
+
+    margin-right:
+        7px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--blue);
+
+}
+
+
+.status-dot.done {
+
+    background:
+        var(--success);
+
+}
+
+
+.project-percent {
+
+    text-align:
+        right;
+
+}
+
+
+.percent {
+
+    font-size:
+        29px;
+
+    line-height:
+        1;
+
+    font-weight:
+        800;
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+.percent-bar {
+
+    width:
+        112px;
+
+    height:
+        6px;
+
+    margin:
+        8px
+        0
+        0
+        auto;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        999px;
+
+    background:
+        var(--gray-light);
+
+}
+
+
+.percent-bar span {
+
+    display:
+        block;
+
+    height:
+        100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue-dark),
+            var(--blue),
+            var(--blue-light)
+        );
+
+}
+
+
+/* =========================================================
+   CABEÇALHO DE PÁGINA
+   ========================================================= */
+
+.page-header {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        flex-end;
+
+    padding-bottom:
+        18px;
+
+    margin-bottom:
+        22px;
+
+    border-bottom:
+        2px solid
+        var(--blue-dark);
+
+}
+
+
+.page-header h2 {
+
+    margin:
+        0;
+
+    font-size:
+        57px;
+
+    line-height:
+        .9;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        -.055em;
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+.page-header p {
+
+    margin:
+        8px
+        0
+        0;
+
+    font-size:
+        12px;
+
+    color:
+        var(--gray-dark);
+
+}
+
+
+/* =========================================================
+   GALERIA
+   ========================================================= */
+
+.gallery {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:
+        36px
+        22px;
+
+}
+
+
+.document-preview {
+
+    aspect-ratio:
+        .75;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    background:
+        #F0F3F5;
+
+    border:
+        1px solid
+        var(--gray-light);
+
+    border-radius:
+        16px;
+
+}
+
+
+.document-preview::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        160%;
+
+    height:
+        3px;
+
+    background:
+        var(--blue-light);
+
+    transform:
+        rotate(-39deg);
+
+}
+
+
+.document-paper {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    width:
+        74%;
+
+    height:
+        84%;
+
+    padding:
+        18px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    justify-content:
+        space-between;
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid
+        var(--gray-mid);
+
+    border-radius:
+        10px;
+
+    box-shadow:
+        7px
+        9px
+        0
+        rgba(0,58,121,.10);
+
+    transition:
+        .2s ease;
+
+}
+
+
+.gallery-item:hover
+.document-paper {
+
+    transform:
+        translateY(-6px);
+
+}
+
+
+.document-paper::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    left:
+        0;
+
+    right:
+        0;
+
+    height:
+        8px;
+
+    background:
+        var(--blue);
+
+    border-radius:
+        10px
+        10px
+        0
+        0;
+
+}
+
+
+.document-label {
+
+    font-size:
+        8px;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .12em;
+
+    color:
+        var(--gray-dark);
+
+}
+
+
+.document-title {
+
+    font-size:
+        22px;
+
+    line-height:
+        .98;
+
+    letter-spacing:
+        -.035em;
+
+    font-weight:
+        800;
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+.document-line {
+
+    width:
+        55%;
+
+    height:
+        3px;
+
+    background:
+        var(--blue-light);
+
+}
+
+
+.gallery-item h3 {
+
+    margin:
+        12px
+        0
+        0;
+
+    font-size:
+        15px;
+
+    line-height:
+        1.15;
+
+    font-weight:
+        800;
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+.gallery-item p {
+
+    margin:
+        6px
+        0
+        0;
+
+    font-size:
+        9px;
+
+    line-height:
+        1.4;
+
+    color:
+        var(--gray-dark);
+
+}
+
+
+/* =========================================================
+   LINKS DE ARQUIVOS
+   ========================================================= */
+
+.file-actions {
+
+    display:
+        flex;
+
+    gap:
+        7px;
+
+    flex-wrap:
+        wrap;
+
+    margin-top:
+        9px;
+
+}
+
+
+.file-actions a {
+
+    min-height:
+        30px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        0
+        12px;
+
+    border:
+        1px solid
+        var(--blue);
+
+    border-radius:
+        999px;
+
+    background:
+        var(--surface);
+
+    color:
+        var(--blue-dark);
+
+    text-decoration:
+        none;
+
+    font-size:
+        8px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        .07em;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.file-actions a:hover {
+
+    background:
+        var(--blue-dark);
+
+    color:
+        white;
+
+}
+
+
+/* =========================================================
+   PROJETO INDIVIDUAL
+   ========================================================= */
+
+.project-detail {
+
+    padding:
+        58px
+        70px
+        85px;
+
+}
+
+
+.back-button {
+
+    border:
+        1px solid
+        var(--gray-light);
+
+    border-radius:
+        999px;
+
+    background:
+        var(--surface-soft);
+
+    color:
+        var(--blue-dark);
+
+    padding:
+        9px
+        14px;
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        .09em;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.detail-header {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        270px;
+
+    gap:
+        55px;
+
+    padding:
+        30px
+        0;
+
+    border-bottom:
+        1px solid
+        var(--gray-light);
+
+}
+
+
+.detail-kicker {
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    color:
+        var(--blue);
+
+    letter-spacing:
+        .15em;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.detail-title {
+
+    margin:
+        12px
+        0
+        18px;
+
+    max-width:
+        860px;
+
+    font-size:
+        62px;
+
+    line-height:
+        .92;
+
+    letter-spacing:
+        -.06em;
+
+    font-weight:
+        800;
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+.detail-lead {
+
+    max-width:
+        780px;
+
+    font-size:
+        17px;
+
+    line-height:
+        1.52;
+
+    color:
+        var(--gray-dark);
+
+}
+
+
+.score {
+
+    align-self:
+        end;
+
+    padding-left:
+        26px;
+
+    border-left:
+        1px solid
+        var(--gray-light);
+
+}
+
+
+.score-label {
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .12em;
+
+}
+
+
+.score-number {
+
+    margin-top:
+        8px;
+
+    font-size:
+        61px;
+
+    line-height:
+        .8;
+
+    font-weight:
+        800;
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+.score-bar {
+
+    height:
+        7px;
+
+    margin-top:
+        16px;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        999px;
+
+    background:
+        var(--gray-light);
+
+}
+
+
+.score-bar span {
+
+    display:
+        block;
+
+    height:
+        100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue-dark),
+            var(--blue),
+            var(--blue-light)
+        );
+
+}
+
+
+.score-status {
+
+    margin-top:
+        9px;
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .1em;
+
+}
+
+
+.dates {
+
+    margin-top:
+        17px;
+
+    font-size:
+        9px;
+
+    line-height:
+        1.9;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .07em;
+
+    color:
+        var(--gray);
+
+}
+
+
+/* =========================================================
+   DOCUMENTO BASE
+   ========================================================= */
+
+.base-document {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        190px
+        1fr;
+
+    border-bottom:
+        1px solid
+        var(--gray-light);
+
+}
+
+
+.base-index {
+
+    padding:
+        28px
+        25px
+        31px
+        0;
+
+    border-right:
+        1px solid
+        var(--gray-light);
+
+}
+
+
+.base-index strong {
+
+    display:
+        block;
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .10em;
+
+    text-transform:
+        uppercase;
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+.base-index small {
+
+    display:
+        block;
+
+    margin-top:
+        8px;
+
+    font-size:
+        9px;
+
+    line-height:
+        1.45;
+
+    color:
+        var(--gray);
+
+}
+
+
+.base-content {
+
+    padding:
+        28px
+        0
+        31px
+        32px;
+
+}
+
+
+.base-content h3 {
+
+    margin:
+        0
+        0
+        10px;
+
+    font-size:
+        30px;
+
+    line-height:
+        1;
+
+    font-weight:
+        800;
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+.base-content p {
+
+    max-width:
+        790px;
+
+    margin:
+        0;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.55;
+
+    color:
+        var(--gray-dark);
+
+}
+
+
+/* =========================================================
+   ETAPAS
+   ========================================================= */
+
+.timeline {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:
+        12px;
+
+    padding:
+        27px
+        0;
+
+    border-bottom:
+        1px solid
+        var(--gray-light);
+
+}
+
+
+.timeline-step {
+
+    border-top:
+        4px solid
+        var(--gray-light);
+
+    padding-top:
+        9px;
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.3;
+
+    color:
+        var(--gray);
+
+    letter-spacing:
+        .07em;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.timeline-step.done {
+
+    border-color:
+        var(--blue-dark);
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+.timeline-step.current {
+
+    border-color:
+        var(--blue);
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+/* =========================================================
+   INFORMAÇÕES
+   ========================================================= */
+
+.info-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:
+        0
+        50px;
+
+}
+
+
+.info-block {
+
+    padding:
+        22px
+        0;
+
+    border-bottom:
+        1px solid
+        var(--gray-light);
+
+}
+
+
+.info-block h4 {
+
+    margin:
+        0
+        0
+        8px;
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        .14em;
+
+    text-transform:
+        uppercase;
+
+    color:
+        var(--gray-dark);
+
+}
+
+
+.info-block p {
+
+    margin:
+        0;
+
+    font-size:
+        17px;
+
+    line-height:
+        1.45;
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+.tags {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        7px;
+
+}
+
+
+.tag {
+
+    padding:
+        7px
+        10px;
+
+    border:
+        1px solid
+        var(--gray-light);
+
+    border-radius:
+        999px;
+
+    background:
+        var(--surface-soft);
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    color:
+        var(--blue-dark);
+
+}
+
+
+/* =========================================================
+   SEM RESULTADO
+   ========================================================= */
+
+.empty {
+
+    padding:
+        35px
+        20px;
+
+    text-align:
+        center;
+
+    border:
+        1px dashed
+        var(--gray-light);
+
+    border-radius:
+        16px;
+
+    background:
+        var(--surface-soft);
+
+    color:
+        var(--gray);
+
+    font-size:
+        12px;
+
+}
+
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+
+.footer {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    padding:
+        12px
+        4px
+        0;
+
+    font-size:
+        8px;
+
+    line-height:
+        1.5;
+
+    color:
+        var(--gray);
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .10em;
+
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media(max-width:1050px){
+
+    .file-label {
+        min-width: 270px;
+    }
+
+    .navigation button {
+        min-width: 100px;
+    }
+
+    .home-intro {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .team {
+        border-left: 0;
+        border-top: 1px solid var(--gray-light);
+        padding: 25px 0 0;
+    }
+
+    .project-row {
+        grid-template-columns:
+            38px
+            1fr
+            120px;
+    }
+
+    .project-status {
+        grid-column: 2;
+    }
+
+    .project-percent {
+        grid-column: 3;
+        grid-row: 1 / span 2;
+    }
+
+    .gallery {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .detail-header {
+        grid-template-columns: 1fr;
+    }
+
+    .score {
+        border-left: 0;
+        border-top: 1px solid var(--gray-light);
+        padding: 21px 0 0;
+    }
+
+    .filter-bar {
+        grid-template-columns:
+            1fr
+            1fr;
+    }
+
+}
+
+
+@media(max-width:700px){
+
+    .outer {
+
+        width:
+            calc(100% - 14px);
+
+        margin-top:
+            8px;
+
+    }
+
+    .top {
+
+        display:
+            block;
+
+    }
+
+    .file-label {
+
+        width:
+            100%;
+
+        border-bottom:
+            1px solid
+            var(--blue-dark);
+
+    }
+
+    .navigation {
+
+        overflow-x:
+            auto;
+
+        height:
+            auto;
+
+        padding:
+            7px 0;
+
+    }
+
+    .navigation button {
+
+        min-width:
+            110px;
+
+        min-height:
+            50px;
+
+    }
+
+    .theme-button {
+
+        position:
+            absolute;
+
+        right:
+            16px;
+
+        top:
+            16px;
+
+    }
+
+    .page,
+    .project-detail {
+
+        padding:
+            40px
+            23px
+            58px;
+
+    }
+
+    .home-title {
+
+        font-size:
+            56px;
+
+    }
+
+    .home-text {
+
+        font-size:
+            17px;
+
+    }
+
+    .project-row {
+
+        grid-template-columns:
+            30px
+            1fr;
+
+    }
+
+    .project-status,
+    .project-percent {
+
+        grid-column:
+            2;
+
+        grid-row:
+            auto;
+
+        text-align:
+            left;
+
+    }
+
+    .percent-bar {
+
+        margin-left:
+            0;
+
+    }
+
+    .gallery {
+
+        grid-template-columns:
+            1fr
+            1fr;
+
+        gap:
+            30px
+            12px;
+
+    }
+
+    .page-header h2 {
+
+        font-size:
+            43px;
+
+    }
+
+    .base-document {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .base-index {
+
+        border-right:
+            none;
+
+        border-bottom:
+            1px solid
+            var(--gray-light);
+
+        padding:
+            22px
+            0;
+
+    }
+
+    .base-content {
+
+        padding:
+            22px
+            0
+            28px;
+
+    }
+
+    .timeline {
+
+        grid-template-columns:
+            1fr
+            1fr;
+
+    }
+
+    .info-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .detail-title {
+
+        font-size:
+            44px;
+
+    }
+
+    .filter-bar {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .filter-count {
+
+        grid-column:
+            auto;
+
+    }
+
+    .footer {
+
+        display:
+            block;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="outer">
+
+
+<!-- =========================================================
+     CABEÇALHO
+     ========================================================= -->
+
+<header class="top">
+
+
+    <div class="file-label">
+
+
+        <div class="fgv-word">
+
+            FGV
+
+        </div>
+
+
+        <div class="file-separator"></div>
+
+
+        <div class="area-name">
+
+            DICOM<br>
+            PROCESSOS
+
+        </div>
+
+
+    </div>
+
+
+
+    <nav class="navigation">
+
+
+        <button
+            class="active"
+            data-page="home">
+
+            Home
+
+        </button>
+
+
+        <button
+            data-page="projetos">
+
+            Projetos
+
+        </button>
+
+
+        <button
+            data-page="fluxos">
+
+            Fluxos
+
+        </button>
+
+
+        <button
+            data-page="documentos">
+
+            Documentos
+
+        </button>
+
+
+    </nav>
+
+
+
+    <button
+        class="theme-button"
+        id="themeButton"
+        title="Alternar modo">
+
+        ☼
+
+    </button>
+
+
+</header>
+
+
+
+<main class="file">
+
+
+
+<!-- =========================================================
+     HOME
+     ========================================================= -->
+
+<section
+    id="home"
+    class="page">
+
+
+    <div class="home-intro">
+
+
+        <div>
+
+
+            <div class="eyebrow">
+
+                FGV DICOM · PROCESSOS
+
+            </div>
+
+
+            <h1 class="home-title">
+
+                Processos
+
+            </h1>
+
+
+            <p class="home-text">
+
+                Projetos em desenvolvimento, fluxos desenhados
+                e documentos produzidos pela área de Processos.
+
+            </p>
+
+
+        </div>
+
+
+
+        <div class="team">
+
+
+            <div class="team-heading">
+
+                Pessoas da área
+
+            </div>
+
+
+            <div
+                id="teamPeople"
+                class="people">
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         PROJETOS
+         ===================================================== -->
+
+
+    <section class="section">
+
+
+        <div class="section-heading">
+
+
+            <h2>
+
+                Projetos em desenvolvimento
+
+            </h2>
+
+
+            <span>
+
+                Acompanhamento · 2026
+
+            </span>
+
+
+        </div>
+
+
+
+        <div
+            class="filter-bar"
+            data-filter="homeProjects">
+
+
+            <input
+                class="filter"
+                data-search
+                type="search"
+                placeholder="Pesquisar projeto...">
+
+
+            <select
+                class="filter"
+                data-status>
+
+                <option value="">
+
+                    Todos os status
+
+                </option>
+
+            </select>
+
+
+            <select
+                class="filter"
+                data-area>
+
+                <option value="">
+
+                    Todas as áreas
+
+                </option>
+
+            </select>
+
+
+            <select
+                class="filter"
+                data-progress>
+
+                <option value="">
+
+                    Todo andamento
+
+                </option>
+
+                <option value="0-49">
+
+                    0–49%
+
+                </option>
+
+                <option value="50-79">
+
+                    50–79%
+
+                </option>
+
+                <option value="80-99">
+
+                    80–99%
+
+                </option>
+
+                <option value="100-100">
+
+                    100%
+
+                </option>
+
+            </select>
+
+
+            <button
+                class="filter-clear"
+                type="button">
+
+                Limpar
+
+            </button>
+
+
+            <div
+                class="filter-count">
+
+            </div>
+
+
+        </div>
+
+
+
+        <div
+            id="homeProjects"
+            class="project-list">
+
+        </div>
+
+
+    </section>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     PROJETOS
+     ========================================================= -->
+
+<section
+    id="projetos"
+    class="page"
+    hidden>
+
+
+    <div class="page-header">
+
+
+        <div>
+
+
+            <h2>
+
+                Projetos
+
+            </h2>
+
+
+            <p>
+
+                Arquivo dos projetos acompanhados
+                pela área de Processos.
+
+            </p>
+
+
+        </div>
+
+
+        <span>
+
+            2026
+
+        </span>
+
+
+    </div>
+
+
+
+    <div
+        class="filter-bar"
+        data-filter="projectGallery">
+
+
+        <input
+            class="filter"
+            data-search
+            type="search"
+            placeholder="Pesquisar projeto...">
+
+
+        <select
+            class="filter"
+            data-status>
+
+            <option value="">
+
+                Todos os status
+
+            </option>
+
+        </select>
+
+
+        <select
+            class="filter"
+            data-area>
+
+            <option value="">
+
+                Todas as áreas
+
+            </option>
+
+        </select>
+
+
+        <select
+            class="filter"
+            data-progress>
+
+            <option value="">
+
+                Todo andamento
+
+            </option>
+
+            <option value="0-49">
+
+                0–49%
+
+            </option>
+
+            <option value="50-79">
+
+                50–79%
+
+            </option>
+
+            <option value="80-99">
+
+                80–99%
+
+            </option>
+
+            <option value="100-100">
+
+                100%
+
+            </option>
+
+        </select>
+
+
+        <button
+            class="filter-clear"
+            type="button">
+
+            Limpar
+
+        </button>
+
+
+        <div
+            class="filter-count">
+
+        </div>
+
+
+    </div>
+
+
+
+    <div
+        id="projectGallery"
+        class="gallery">
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     FLUXOS
+     ========================================================= -->
+
+<section
+    id="fluxos"
+    class="page"
+    hidden>
+
+
+    <div class="page-header">
+
+
+        <div>
+
+            <h2>
+
+                Fluxos
+
+            </h2>
+
+
+            <p>
+
+                Fluxos desenhados e formalizados
+                pela área.
+
+            </p>
+
+        </div>
+
+
+        <span>
+
+            2026
+
+        </span>
+
+
+    </div>
+
+
+
+    <div
+        class="filter-bar"
+        data-filter="flowGallery">
+
+
+        <input
+            class="filter"
+            data-search
+            type="search"
+            placeholder="Pesquisar fluxo...">
+
+
+        <select
+            class="filter"
+            data-area>
+
+            <option value="">
+
+                Todas as áreas
+
+            </option>
+
+        </select>
+
+
+        <select
+            class="filter"
+            data-year>
+
+            <option value="">
+
+                Todos os anos
+
+            </option>
+
+        </select>
+
+
+        <button
+            class="filter-clear"
+            type="button">
+
+            Limpar
+
+        </button>
+
+
+        <div
+            class="filter-count">
+
+        </div>
+
+
+    </div>
+
+
+
+    <div
+        id="flowGallery"
+        class="gallery">
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     DOCUMENTOS
+     ========================================================= -->
+
+<section
+    id="documentos"
+    class="page"
+    hidden>
+
+
+    <div class="page-header">
+
+
+        <div>
+
+            <h2>
+
+                Documentos
+
+            </h2>
+
+
+            <p>
+
+                Documentos produzidos e divulgados
+                pela área.
+
+            </p>
+
+        </div>
+
+
+        <span>
+
+            2026
+
+        </span>
+
+
+    </div>
+
+
+
+    <div
+        class="filter-bar"
+        data-filter="documentGallery">
+
+
+        <input
+            class="filter"
+            data-search
+            type="search"
+            placeholder="Pesquisar documento...">
+
+
+        <select
+            class="filter"
+            data-area>
+
+            <option value="">
+
+                Todas as áreas
+
+            </option>
+
+        </select>
+
+
+        <select
+            class="filter"
+            data-type>
+
+            <option value="">
+
+                Todos os tipos
+
+            </option>
+
+        </select>
+
+
+        <select
+            class="filter"
+            data-year>
+
+            <option value="">
+
+                Todos os anos
+
+            </option>
+
+        </select>
+
+
+        <button
+            class="filter-clear"
+            type="button">
+
+            Limpar
+
+        </button>
+
+
+        <div
+            class="filter-count">
+
+        </div>
+
+
+    </div>
+
+
+
+    <div
+        id="documentGallery"
+        class="gallery">
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     DETALHE DO PROJETO
+     ========================================================= -->
+
+<section
+    id="detail"
+    class="project-detail"
+    hidden>
+
+</section>
+
+
+</main>
+
+
+
+<div class="footer">
+
+
+    <span>
+
+        FGV DICOM · PROCESSOS · Uso interno
+
+    </span>
+
+
+    <span>
+
+        Dados atualizados pelo controle da área
+
+    </span>
+
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+/* DATA_START */
+const DATA = {"projetos":[{"@odata.etag":"","ItemInternalId":"fb8ce3f5-47fb-450a-9d0b-3512fd86c371","ID Projeto":"Site","Projeto":"Migração do Site de Documentos Normativos","Descrição":"Migrar todas as informações do site \"Documentos Normativos DICOM\" para o SharePoint, buscando a centralização, organização e segurança dos dados.","Status":"Em andamento","Percentual":"89","Data Início":"46176","Previsão":"46275","Data Finalização":"","Etapa Atual":"Checagem Final","Explicação da Etapa":"Está sendo realizada a checagem geral de todas as funcionalidades e visuais do site.","Objetivo de Melhoria":"Garantir a segurança na disponibilização dos documentos normativos da DICOM.","Áreas Envolvidas":"Processos; Design; Comunicação Corporativa; Digital Experience","Ferramentas":"Sharepoint; Power Apps","Responsáveis":"Coordenadora; Estagiária","Link/Arquivo de Apoio":"https://www18.fgv.br/mailing/planejamento/perfil-areas-dicom/perfis-dicom.pdf","Observações":""}],"etapas":[{"@odata.etag":"","ItemInternalId":"96c26d96-1ee6-41b5-9d5a-8702f7f98b38","ID Projeto":"Site","Ordem":"1","Etapa":"Início","Status":"Concluída","Data Início":"12.05.2026","Data Fim":"2026-05-14","Descrição da Etapa":"Definição do escopo.","Entregável da Etapa":"Escopo aprovado.","Próxima Etapa":"Diagnóstico","Observações":""},{"@odata.etag":"","ItemInternalId":"75fc2092-9f51-4f48-b551-df34b025fe66","ID Projeto":"Site","Ordem":"2","Etapa":"Diagnóstico","Status":"Concluída","Data Início":"15.05.2026","Data Fim":"2026-06-05","Descrição da Etapa":"Mapeamento do processo atual.","Entregável da Etapa":"Mapa AS-IS.","Próxima Etapa":"Redesenho","Observações":""},{"@odata.etag":"","ItemInternalId":"629adbf0-d358-4b9e-a984-01520267c06d","ID Projeto":"Site","Ordem":"3","Etapa":"Redesenho","Status":"Concluída","Data Início":"2026-06-06","Data Fim":"2026-06-05","Descrição da Etapa":"Estruturação do fluxo futuro.","Entregável da Etapa":"Fluxo TO-BE.","Próxima Etapa":"Validação","Observações":""},{"@odata.etag":"","ItemInternalId":"27a5110f-08bd-4145-8af7-f9a2dc0a3bf1","ID Projeto":"Site","Ordem":"4","Etapa":"Validação","Status":"Em andamento","Data Início":"2026-06-06","Data Fim":"","Descrição da Etapa":"Validação com áreas envolvidas.","Entregável da Etapa":"Fluxo validado.","Próxima Etapa":"Implementação","Observações":""},{"@odata.etag":"","ItemInternalId":"65e8c4de-6e34-4fce-bf01-9a0ef2942c02","ID Projeto":"Site","Ordem":"5","Etapa":"Implementação","Status":"Concluída","Data Início":"","Data Fim":"","Descrição da Etapa":"Implementação das melhorias.","Entregável da Etapa":"Processo implementado.","Próxima Etapa":"Encerramento","Observações":""}],"documentos":[{"@odata.etag":"","ItemInternalId":"5dfbe742-cc24-4e05-bdd6-901917f913d4","ID Documento":"D001","Título":"Manual de Boas Práticas para o Contact Center","Superintendência":"Inteligência e Relacionamento","Área":"CRM","Data de Divulgação":"15.03.2026","Tipo":"Manual","Link PDF":"https://www18.fgv.br/mailing/planejamento/documentos-normativos/lista-mestra/manual-contact-center/manual-boas-praticas-contact-center.pdf","Link JPEG/Imagem":"https://i.postimg.cc/BbS4NSwW/image.png","Observações":""},{"@odata.etag":"","ItemInternalId":"133bc40d-a1b4-4e44-b449-2d1cc57c4355","ID Documento":"D002","Título":"Norma de Procedimentos: Produção de Eventos","Superintendência":"Comunicação e Digital","Área":"Eventos","Data de Divulgação":"15.05.2026","Tipo":"Norma de Procedimentos","Link PDF":"https://www18.fgv.br/mailing/planejamento/documentos-normativos/lista-mestra/normas-procedimentos-producao-eventos.pdf","Link JPEG/Imagem":"https://i.postimg.cc/ncYZgDfg/image.png","Observações":""},{"@odata.etag":"","ItemInternalId":"54f2e850-ef93-4957-bcf7-7cab8fcd7034","ID Documento":"D003","Título":"Diretriz de Solicitação de Cursos e Bolsas de Estudo","Superintendência":"Planejamento e Gestão","Área":"Gestão Corporativa","Data de Divulgação":"19.06.2026","Tipo":"Diretriz","Link PDF":"https://www18.fgv.br/mailing/planejamento/documentos-normativos/lista-mestra/diretriz-solicitacao-curso.pdf","Link JPEG/Imagem":"https://i.postimg.cc/4yvCDrqn/image.png","Observações":""},{"@odata.etag":"","ItemInternalId":"825a46fd-01f9-4bb4-a65d-57b07cbf88ee","ID Documento":"D004","Título":"Manual de Criação para Scripts","Superintendência":"Marketing Escolas e Unidades   ","Área":"Marketing Escolas e Unidades","Data de Divulgação":"15.06.2026","Tipo":"Manual","Link PDF":"https://www18.fgv.br/mailing/planejamento/documentos-normativos/lista-mestra/manual-criacao-script-mestrado-pos.pdf","Link JPEG/Imagem":"https://i.postimg.cc/jdVdGTwY/image.png","Observações":""},{"@odata.etag":"","ItemInternalId":"5fd3f35d-ec8a-4b87-91d2-08b7f989134d","ID Documento":"D005","Título":"Norma de Procedimentos: Pagamentos eletrônicos e Manuais","Superintendência":"Planejamento e Gestão","Área":"Controladoria","Data de Divulgação":"19.08.2026","Tipo":"Norma de Procedimentos","Link PDF":"https://www18.fgv.br/mailing/planejamento/documentos-normativos/lista-mestra/norma-procedimentos-pagamentos-eletronicos-manuais.pdf","Link JPEG/Imagem":"https://i.postimg.cc/k5ZdKNWC/image.png","Observações":""}],"fluxos":[{"@odata.etag":"","ItemInternalId":"73edc11f-b7ac-4a1d-bdf1-ac5040cc094e","ID Fluxo":"F001","Título":"Fluxo Criação e Disparo de Peças de Campanhas com Auxílio de Agente IA","Superintendência":"Inovação e Inteligência Artificial","Área":"Múltiplas Áreas","Data":"15.06.2026","Link PDF":"https://www18.fgv.br/mailing/planejamento/documentos-normativos/fluxos/multiplas/fluxo-criacao-pecas-agente-ia.pdf","Link JPEG/Imagem":"https://i.postimg.cc/NMNmVr0J/Capa-Fluxo-Pecas-IA-dinamica.png","Observações":""}],"equipe":[{"@odata.etag":"","ItemInternalId":"48657bb1-e2cb-420d-b39d-6b77b62e262f","ID":"E001","Nome":"Tathiana Queres","Cargo":"Coordenadora","Área/Função":"Processos","Link da Foto":"https://i.postimg.cc/d39CWrXr/Tathiana-Queres.png","Ativo":"Sim","Ordem":"1"},{"@odata.etag":"","ItemInternalId":"007664fe-1592-4d2f-9157-a2e211117bf8","ID":"E002","Nome":"Letícia Rocha","Cargo":"Analista","Área/Função":"Processos","Link da Foto":"https://i.postimg.cc/Bbf3Mbz5/Let-cia-Rocha-1.png","Ativo":"Sim","Ordem":"2"},{"@odata.etag":"","ItemInternalId":"df468dd0-7f02-4dd2-bc0e-8db0c8240637","ID":"E003","Nome":"Táila Moreira","Cargo":"Estagiária","Área/Função":"Processos","Link da Foto":"https://i.postimg.cc/6pLH8CRX/Taila-Moreira.png","Ativo":"Sim","Ordem":"3"}]};
+/* DATA_END */
+
+
+
+
+
+/* ==========================================================
+   NORMALIZAÇÃO
+   ========================================================== */
+
+
+function texto(valor){
+
+    return String(
+        valor ?? ""
+    );
+
+}
+
+
+
+function normalizar(valor){
+
+    return texto(valor)
+
+        .normalize("NFD")
+
+        .replace(
+            /[\u0300-\u036f]/g,
+            ""
+        )
+
+        .toLowerCase()
+
+        .trim();
+
+}
+
+
+
+function arrayCampo(valor){
+
+    if(Array.isArray(valor)){
+        return valor;
+    }
+
+
+    return texto(valor)
+
+        .split(";")
+
+        .map(item => item.trim())
+
+        .filter(Boolean);
+
+}
+
+
+
+/* ==========================================================
+   NAVEGAÇÃO
+   ========================================================== */
+
+
+const botoes =
+    document.querySelectorAll(
+        ".navigation button"
+    );
+
+
+const paginas =
+    document.querySelectorAll(
+        ".page"
+    );
+
+
+function abrirPagina(id){
+
+
+    paginas.forEach(
+        pagina =>
+        pagina.hidden = true
+    );
+
+
+    const detalhe =
+        document.getElementById("detail");
+
+
+    if(detalhe){
+        detalhe.hidden = true;
+    }
+
+
+    document
+        .getElementById(id)
+        .hidden = false;
+
+
+    botoes.forEach(
+        button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.page === id
+            );
+
+        }
+    );
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+
+botoes.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                abrirPagina(
+                    button.dataset.page
+                );
+
+            }
+        );
+
+    }
+);
+
+
+
+/* ==========================================================
+   EQUIPE
+   ========================================================== */
+
+
+function renderizarEquipe(){
+
+
+    const container =
+        document.getElementById(
+            "teamPeople"
+        );
+
+
+    container.innerHTML =
+        "";
+
+
+    const equipe =
+        (DATA.equipe || [])
+
+            .filter(
+                pessoa =>
+                normalizar(
+                    pessoa.Ativo
+                ) === "sim"
+            )
+
+            .sort(
+                (a,b) =>
+                Number(a.Ordem || 999)
+                -
+                Number(b.Ordem || 999)
+            );
+
+
+    equipe.forEach(
+        pessoa => {
+
+
+            const foto =
+                pessoa["Link da Foto"];
+
+
+            container.innerHTML += `
+
+                <div class="person">
+
+                    <div class="person-photo">
+
+                        ${
+                            foto
+                            ?
+                            `
+                            <img
+                                src="${foto}"
+                                alt="${texto(pessoa.Nome)}">
+                            `
+                            :
+                            ``
+                        }
+
+                    </div>
+
+
+                    <div class="person-name">
+
+                        ${texto(pessoa.Nome)}
+
+                    </div>
+
+
+                    <div class="person-role">
+
+                        ${texto(pessoa.Cargo)}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+}
+
+
+
+/* ==========================================================
+   PROJETOS
+   ========================================================== */
+
+
+function renderizarHomeProjetos(lista = null){
+
+
+    const container =
+        document.getElementById(
+            "homeProjects"
+        );
+
+
+    const projetos =
+        lista ||
+        DATA.projetos ||
+        [];
+
+
+    container.innerHTML =
+        "";
+
+
+    projetos.forEach(
+        (projeto,index) => {
+
+
+            const percentual =
+                Number(
+                    projeto.Percentual || 0
+                );
+
+
+            const finalizado =
+                percentual === 100 ||
+                normalizar(
+                    projeto.Status
+                ) === "finalizado";
+
+
+            container.innerHTML += `
+
+                <article
+                    class="project-row"
+                    onclick="
+                        abrirProjeto('${texto(
+                            projeto["ID Projeto"]
+                        )}')
+                    ">
+
+
+                    <div
+                        class="project-number">
+
+                        ${String(
+                            index + 1
+                        ).padStart(2,"0")}
+
+                    </div>
+
+
+                    <div>
+
+
+                        <div
+                            class="project-name">
+
+                            ${texto(
+                                projeto.Projeto
+                            )}
+
+                        </div>
+
+
+                        <div
+                            class="project-description">
+
+                            ${texto(
+                                projeto.Descrição
+                            )}
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div
+                        class="project-status">
+
+
+                        <span
+                            class="
+                                status-dot
+                                ${
+                                    finalizado
+                                    ? "done"
+                                    : ""
+                                }
+                            ">
+                        </span>
+
+
+                        ${texto(
+                            projeto.Status
+                        )}
+
+
+                    </div>
+
+
+                    <div
+                        class="project-percent">
+
+
+                        <div
+                            class="percent">
+
+                            ${percentual}%
+
+                        </div>
+
+
+                        <div
+                            class="percent-bar">
+
+
+                            <span
+                                style="
+                                    width:${percentual}%
+                                ">
+
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </article>
+
+            `;
+
+        }
+    );
+
+
+    if(
+        projetos.length === 0
+    ){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Nenhum projeto encontrado.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+function renderizarGaleriaProjetos(lista = null){
+
+
+    const container =
+        document.getElementById(
+            "projectGallery"
+        );
+
+
+    const projetos =
+        lista ||
+        DATA.projetos ||
+        [];
+
+
+    container.innerHTML =
+        "";
+
+
+    projetos.forEach(
+        projeto => {
+
+
+            container.innerHTML += `
+
+                <article
+                    class="gallery-item"
+                    onclick="
+                        abrirProjeto('${texto(
+                            projeto["ID Projeto"]
+                        )}')
+                    ">
+
+
+                    <div
+                        class="document-preview">
+
+
+                        <div
+                            class="document-paper">
+
+
+                            <small
+                                class="document-label">
+
+                                Projeto
+                                ${texto(
+                                    projeto["ID Projeto"]
+                                )}
+
+                            </small>
+
+
+                            <strong
+                                class="document-title">
+
+                                ${texto(
+                                    projeto.Projeto
+                                )}
+
+                            </strong>
+
+
+                            <i
+                                class="document-line">
+                            </i>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <h3>
+
+                        ${texto(
+                            projeto.Projeto
+                        )}
+
+                    </h3>
+
+
+                    <p>
+
+                        ${Number(
+                            projeto.Percentual || 0
+                        )}%
+                        ·
+                        ${texto(
+                            projeto.Status
+                        )}
+
+                    </p>
+
+
+                </article>
+
+            `;
+
+        }
+    );
+
+
+    if(!projetos.length){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Nenhum projeto encontrado.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+/* ==========================================================
+   FLUXOS
+   ========================================================== */
+
+
+function renderizarFluxos(lista = null){
+
+
+    const container =
+        document.getElementById(
+            "flowGallery"
+        );
+
+
+    const fluxos =
+        lista ||
+        DATA.fluxos ||
+        [];
+
+
+    container.innerHTML =
+        "";
+
+
+    fluxos.forEach(
+        fluxo => {
+
+
+            const titulo = texto(fluxo["Título"]);
+            const pdf = texto(fluxo["Link PDF"]);
+            const imagem = texto(fluxo["Link JPEG/Imagem"]);
+            const linkPrincipal = imagem || pdf;
+
+
+            container.innerHTML += `
+
+                <article class="gallery-item">
+
+                    ${
+                        linkPrincipal
+                        ? `
+                        <a
+                            class="document-preview document-link"
+                            href="${linkPrincipal}"
+                            target="_blank"
+                            rel="noopener"
+                            title="Abrir arquivo">
+
+                            <div class="document-paper">
+
+                                <small class="document-label">
+                                    Fluxo · ${texto(fluxo["ID Fluxo"])}
+                                </small>
+
+                                <strong class="document-title">
+                                    ${titulo}
+                                </strong>
+
+                                <i class="document-line"></i>
+
+                            </div>
+
+                        </a>
+                        `
+                        :
+                        `
+                        <div class="document-preview">
+                            <div class="document-paper">
+                                <small class="document-label">
+                                    Fluxo · ${texto(fluxo["ID Fluxo"])}
+                                </small>
+                                <strong class="document-title">
+                                    ${titulo}
+                                </strong>
+                                <i class="document-line"></i>
+                            </div>
+                        </div>
+                        `
+                    }
+
+                    <h3>${titulo}</h3>
+
+                    <p>
+                        ${texto(fluxo["Superintendência"])}
+                        ·
+                        ${texto(fluxo["Área"])}
+                        ·
+                        ${texto(fluxo["Data"])}
+                    </p>
+
+                </article>
+
+            `;
+
+        }
+    );
+
+
+    if(!fluxos.length){
+
+        container.innerHTML = `
+            <div class="empty">
+                Nenhum fluxo cadastrado.
+            </div>
+        `;
+
+    }
+
+}
+
+
+
+/* ==========================================================
+   DOCUMENTOS
+   ========================================================== */
+
+
+function renderizarDocumentos(lista = null){
+
+
+    const container =
+        document.getElementById(
+            "documentGallery"
+        );
+
+
+    const documentos =
+        lista ||
+        DATA.documentos ||
+        [];
+
+
+    container.innerHTML =
+        "";
+
+
+    documentos.forEach(
+        documento => {
+
+
+            const titulo = texto(documento["Título"]);
+            const pdf = texto(documento["Link PDF"]);
+            const capa = texto(documento["Link JPEG/Imagem"]);
+
+
+            container.innerHTML += `
+
+                <article class="gallery-item">
+
+                    ${
+                        capa
+                        ? `
+                        <a
+                            class="document-preview document-link"
+                            href="${pdf || capa}"
+                            target="_blank"
+                            rel="noopener"
+                            title="Abrir documento">
+
+                            <img
+                                src="${capa}"
+                                alt="Capa de ${titulo}">
+
+                        </a>
+                        `
+                        :
+                        `
+                        <div class="document-preview">
+                            <div class="document-paper">
+                                <small class="document-label">
+                                    ${texto(documento["Tipo"]) || "Documento"}
+                                </small>
+                                <strong class="document-title">
+                                    ${titulo}
+                                </strong>
+                                <i class="document-line"></i>
+                            </div>
+                        </div>
+                        `
+                    }
+
+                    <h3>${titulo}</h3>
+
+                    <p>
+                        ${texto(documento["Superintendência"])}
+                        ·
+                        ${texto(documento["Área"])}
+                        ·
+                        ${texto(documento["Data de Divulgação"])}
+                    </p>
+
+                </article>
+
+            `;
+
+        }
+    );
+
+
+    if(!documentos.length){
+
+        container.innerHTML = `
+            <div class="empty">
+                Nenhum documento cadastrado.
+            </div>
+        `;
+
+    }
+
+}
+
+
+
+/* ==========================================================
+   PROJETO INDIVIDUAL
+   ========================================================== */
+
+
+function abrirProjeto(id){
+
+
+    const projeto =
+        (DATA.projetos || [])
+            .find(
+                item =>
+                texto(
+                    item["ID Projeto"]
+                ) === texto(id)
+            );
+
+
+    if(!projeto){
+
+        return;
+
+    }
+
+
+    const detalhe =
+        document.getElementById(
+            "detail"
+        );
+
+
+    const percentual =
+        Number(
+            projeto.Percentual || 0
+        );
+
+
+    const etapas =
+        (DATA.etapas || [])
+            .filter(
+                item =>
+                texto(item["ID Projeto"])
+                ===
+                texto(projeto["ID Projeto"])
+            )
+            .sort(
+                (a,b) =>
+                Number(a.Ordem || 0)
+                -
+                Number(b.Ordem || 0)
+            );
+
+
+    let timeline =
+        "";
+
+
+    if(etapas.length){
+
+        etapas.forEach(
+            etapa => {
+
+
+                let classe =
+                    "";
+
+
+                const status =
+                    normalizar(
+                        etapa.Status
+                    );
+
+
+                if(
+                    status === "concluida" ||
+                    status === "concluida."
+                ){
+
+                    classe =
+                        "done";
+
+                }
+
+
+                else if(
+                    status ===
+                    "em andamento"
+                ){
+
+                    classe =
+                        "current";
+
+                }
+
+
+                timeline += `
+
+                    <div
+                        class="
+                            timeline-step
+                            ${classe}
+                        ">
+
+                        ${texto(
+                            etapa.Etapa
+                        )}
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+    }
+
+    else {
+
+        const listaEtapas = [
+
+            "Início",
+            "Diagnóstico",
+            "Redesenho",
+            "Validação",
+            "Implementação"
+
+        ];
+
+
+        const limite =
+            percentual === 100
+            ? 5
+            : Math.floor(
+                percentual / 20
+            );
+
+
+        listaEtapas.forEach(
+            (etapa,index) => {
+
+
+                let classe =
+                    "";
+
+
+                if(
+                    index < limite
+                ){
+
+                    classe =
+                        "done";
+
+                }
+
+                else if(
+                    index === limite
+                    &&
+                    percentual < 100
+                ){
+
+                    classe =
+                        "current";
+
+                }
+
+
+                timeline += `
+
+                    <div
+                        class="
+                            timeline-step
+                            ${classe}
+                        ">
+
+                        ${etapa}
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+    }
+
+
+
+    const areas =
+        arrayCampo(
+            projeto["Áreas Envolvidas"]
+        )
+        .map(
+            item =>
+            `<span class="tag">${item}</span>`
+        )
+        .join("");
+
+
+    const ferramentas =
+        arrayCampo(
+            projeto.Ferramentas
+        )
+        .map(
+            item =>
+            `<span class="tag">${item}</span>`
+        )
+        .join("");
+
+
+    detalhe.innerHTML = `
+
+        <button
+            class="back-button"
+            onclick="
+                abrirPagina('projetos')
+            ">
+
+            ← Voltar para projetos
+
+        </button>
+
+
+        <div class="detail-header">
+
+
+            <div>
+
+
+                <div
+                    class="detail-kicker">
+
+                    Projeto
+                    ${texto(
+                        projeto["ID Projeto"]
+                    )}
+
+                    ·
+
+                    2026
+
+                </div>
+
+
+                <h2
+                    class="detail-title">
+
+                    ${texto(
+                        projeto.Projeto
+                    )}
+
+                </h2>
+
+
+                <div
+                    class="detail-lead">
+
+                    ${texto(
+                        projeto.Descrição
+                    )}
+
+                </div>
+
+
+            </div>
+
+
+
+            <aside
+                class="score">
+
+
+                <div
+                    class="score-label">
+
+                    Andamento
+
+                </div>
+
+
+                <div
+                    class="score-number">
+
+                    ${percentual}%
+
+                </div>
+
+
+                <div
+                    class="score-bar">
+
+
+                    <span
+                        style="
+                            width:${percentual}%
+                        ">
+                    </span>
+
+
+                </div>
+
+
+                <div
+                    class="score-status">
+
+                    ${texto(
+                        projeto.Status
+                    )}
+
+                </div>
+
+
+                <div
+                    class="dates">
+
+                    Início ·
+                    ${texto(
+                        projeto["Data Início"]
+                    )}
+
+                    <br>
+
+                    Previsão ·
+                    ${texto(
+                        projeto.Previsão
+                    )}
+
+                    <br>
+
+                    Finalização ·
+                    ${
+                        texto(
+                            projeto["Data Finalização"]
+                        )
+                        || "—"
+                    }
+
+                </div>
+
+
+            </aside>
+
+
+        </div>
+
+
+
+        <div class="base-document">
+
+
+            <div class="base-index">
+
+
+                <strong>
+
+                    Etapa atual
+
+                </strong>
+
+
+                <small>
+
+                    Registro do momento atual
+                    do projeto e explicação
+                    da atividade em execução.
+
+                </small>
+
+
+            </div>
+
+
+
+            <div class="base-content">
+
+
+                <h3>
+
+                    ${texto(
+                        projeto["Etapa Atual"]
+                    )}
+
+                </h3>
+
+
+                <p>
+
+                    ${texto(
+                        projeto["Explicação da Etapa"]
+                    )}
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="timeline">
+
+            ${timeline}
+
+        </div>
+
+
+
+        <div class="info-grid">
+
+
+            <div class="info-block">
+
+
+                <h4>
+
+                    Sobre o projeto
+
+                </h4>
+
+
+                <p>
+
+                    ${texto(
+                        projeto.Descrição
+                    )}
+
+                </p>
+
+
+            </div>
+
+
+
+            <div class="info-block">
+
+
+                <h4>
+
+                    Objetivo de melhoria
+
+                </h4>
+
+
+                <p>
+
+                    ${texto(
+                        projeto["Objetivo de Melhoria"]
+                    )}
+
+                </p>
+
+
+            </div>
+
+
+
+            <div class="info-block">
+
+
+                <h4>
+
+                    Áreas envolvidas
+
+                </h4>
+
+
+                <div class="tags">
+
+                    ${areas}
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="info-block">
+
+
+                <h4>
+
+                    Ferramentas utilizadas
+
+                </h4>
+
+
+                <div class="tags">
+
+                    ${ferramentas}
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="info-block">
+
+
+                <h4>
+
+                    Pessoas responsáveis
+
+                </h4>
+
+
+                <p>
+
+                    ${texto(
+                        projeto.Responsáveis
+                    )}
+
+                </p>
+
+
+            </div>
+
+
+
+            <div class="info-block">
+
+
+                <h4>
+
+                    Entrega / arquivo relacionado
+
+                </h4>
+
+
+                <p>
+
+
+                    ${
+                        projeto[
+                            "Link/Arquivo de Apoio"
+                        ]
+
+                        ?
+
+                        `
+                        <a
+                            href="${
+                                projeto[
+                                    "Link/Arquivo de Apoio"
+                                ]
+                            }"
+                            target="_blank"
+                            rel="noopener"
+                            style="
+                                color:
+                                var(--blue);
+                                text-decoration:none;
+                                font-weight:700;
+                            ">
+
+                            Abrir arquivo →
+
+                        </a>
+                        `
+
+                        :
+
+                        "Nenhum arquivo cadastrado."
+
+                    }
+
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+    `;
+
+
+    paginas.forEach(
+        pagina =>
+        pagina.hidden = true
+    );
+
+
+    detalhe.hidden =
+        false;
+
+
+    botoes.forEach(
+        button =>
+        button.classList.remove(
+            "active"
+        )
+    );
+
+
+    window.scrollTo({
+
+        top:
+            0,
+
+        behavior:
+            "smooth"
+
+    });
+
+}
+
+
+
+/* ==========================================================
+   FILTROS
+   ========================================================== */
+
+
+function popularSelect(
+    select,
+    valores
+){
+
+
+    const valorAtual =
+        select.value;
+
+
+    const primeiro =
+        select.options[0];
+
+
+    select.innerHTML =
+        "";
+
+
+    select.appendChild(
+        primeiro
+    );
+
+
+    [
+        ...new Set(
+            valores
+                .filter(Boolean)
+                .map(
+                    texto
+                )
+        )
+    ]
+
+    .sort(
+        (a,b) =>
+        a.localeCompare(b,"pt-BR")
+    )
+
+    .forEach(
+        valor => {
+
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                valor;
+
+
+            option.textContent =
+                valor;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    if(
+        [
+            ...select.options
+        ]
+
+        .some(
+            option =>
+            option.value === valorAtual
+        )
+    ){
+
+        select.value =
+            valorAtual;
+
+    }
+
+}
+
+
+
+function obterAreaDoProjeto(projeto){
+
+    return arrayCampo(
+        projeto["Áreas Envolvidas"]
+    );
+
+}
+
+
+
+function aplicarFiltroProjetos(
+    scope
+){
+
+
+    const bar =
+        document.querySelector(
+            `[data-filter="${scope}"]`
+        );
+
+
+    if(!bar){
+
+        return;
+
+    }
+
+
+    const search =
+        normalizar(
+            bar.querySelector(
+                "[data-search]"
+            )?.value
+        );
+
+
+    const status =
+        bar.querySelector(
+            "[data-status]"
+        )?.value || "";
+
+
+    const area =
+        bar.querySelector(
+            "[data-area]"
+        )?.value || "";
+
+
+    const progress =
+        bar.querySelector(
+            "[data-progress]"
+        )?.value || "";
+
+
+    const resultado =
+        (DATA.projetos || [])
+            .filter(
+                projeto => {
+
+
+                    const textoBusca =
+                        normalizar(
+
+                            texto(
+                                projeto.Projeto
+                            )
+                            +
+                            " "
+                            +
+                            texto(
+                                projeto.Descrição
+                            )
+
+                        );
+
+
+                    const percentual =
+                        Number(
+                            projeto.Percentual || 0
+                        );
+
+
+                    let dentroFaixa =
+                        true;
+
+
+                    if(progress){
+
+                        const [
+                            minimo,
+                            maximo
+                        ] =
+                            progress
+                                .split("-")
+                                .map(Number);
+
+
+                        dentroFaixa =
+                            percentual >= minimo
+                            &&
+                            percentual <= maximo;
+
+                    }
+
+
+                    return (
+
+                        (
+                            !search
+                            ||
+                            textoBusca.includes(
+                                search
+                            )
+                        )
+
+                        &&
+
+                        (
+                            !status
+                            ||
+                            texto(
+                                projeto.Status
+                            )
+                            ===
+                            status
+                        )
+
+                        &&
+
+                        (
+                            !area
+                            ||
+                            obterAreaDoProjeto(
+                                projeto
+                            )
+                            .includes(
+                                area
+                            )
+                        )
+
+                        &&
+
+                        dentroFaixa
+
+                    );
+
+                }
+            );
+
+
+    if(scope === "homeProjects"){
+
+        renderizarHomeProjetos(
+            resultado
+        );
+
+    }
+
+    else {
+
+        renderizarGaleriaProjetos(
+            resultado
+        );
+
+    }
+
+
+    bar.querySelector(
+        ".filter-count"
+    ).textContent =
+        `${resultado.length} projeto(s)`;
+
+}
+
+
+
+function aplicarFiltroFluxos(){
+
+    const bar =
+        document.querySelector(
+            '[data-filter="flowGallery"]'
+        );
+
+
+    const search =
+        normalizar(
+            bar.querySelector(
+                "[data-search]"
+            ).value
+        );
+
+
+    const area =
+        bar.querySelector(
+            "[data-area]"
+        ).value;
+
+
+    const year =
+        bar.querySelector(
+            "[data-year]"
+        ).value;
+
+
+    const resultado =
+        (DATA.fluxos || [])
+            .filter(
+                item => {
+
+
+                    const textoBusca =
+                        normalizar(
+                            item["Título"]
+                        );
+
+
+                    const ano =
+                        texto(
+                            item["Data"]
+                        ).slice(-4);
+
+
+                    return (
+
+                        (
+                            !search
+                            ||
+                            textoBusca.includes(
+                                search
+                            )
+                        )
+
+                        &&
+
+                        (
+                            !area
+                            ||
+                            texto(
+                                item["Área"]
+                            )
+                            === area
+                        )
+
+                        &&
+
+                        (
+                            !year
+                            ||
+                            ano === year
+                        )
+
+                    );
+
+                }
+            );
+
+
+    renderizarFluxos(
+        resultado
+    );
+
+
+    bar.querySelector(
+        ".filter-count"
+    ).textContent =
+        `${resultado.length} fluxo(s)`;
+
+}
+
+
+
+function aplicarFiltroDocumentos(){
+
+    const bar =
+        document.querySelector(
+            '[data-filter="documentGallery"]'
+        );
+
+
+    const search =
+        normalizar(
+            bar.querySelector(
+                "[data-search]"
+            ).value
+        );
+
+
+    const area =
+        bar.querySelector(
+            "[data-area]"
+        ).value;
+
+
+    const type =
+        bar.querySelector(
+            "[data-type]"
+        ).value;
+
+
+    const year =
+        bar.querySelector(
+            "[data-year]"
+        ).value;
+
+
+    const resultado =
+        (DATA.documentos || [])
+            .filter(
+                item => {
+
+
+                    const textoBusca =
+                        normalizar(
+                            item["Título"]
+                        );
+
+
+                    const ano =
+                        texto(
+                            item[
+                                "Data de Divulgação"
+                            ]
+                        ).slice(-4);
+
+
+                    return (
+
+                        (
+                            !search
+                            ||
+                            textoBusca.includes(
+                                search
+                            )
+                        )
+
+                        &&
+
+                        (
+                            !area
+                            ||
+                            texto(
+                                item["Área"]
+                            )
+                            === area
+                        )
+
+                        &&
+
+                        (
+                            !type
+                            ||
+                            texto(
+                                item["Tipo"]
+                            )
+                            === type
+                        )
+
+                        &&
+
+                        (
+                            !year
+                            ||
+                            ano === year
+                        )
+
+                    );
+
+                }
+            );
+
+
+    renderizarDocumentos(
+        resultado
+    );
+
+
+    bar.querySelector(
+        ".filter-count"
+    ).textContent =
+        `${resultado.length} documento(s)`;
+
+}
+
+
+
+/* ==========================================================
+   POPULAR FILTROS
+   ========================================================== */
+
+
+function prepararFiltros(){
+
+
+    const status =
+        (DATA.projetos || [])
+            .map(
+                item =>
+                texto(
+                    item.Status
+                )
+            );
+
+
+    const areasProjetos =
+        (DATA.projetos || [])
+            .flatMap(
+                obterAreaDoProjeto
+            );
+
+
+    document
+        .querySelectorAll(
+            '[data-status]'
+        )
+        .forEach(
+            select =>
+            popularSelect(
+                select,
+                status
+            )
+        );
+
+
+    document
+        .querySelectorAll(
+            '[data-area]'
+        )
+        .forEach(
+            select => {
+
+
+                const scope =
+                    select
+                        .closest(
+                            ".filter-bar"
+                        )
+                        ?.dataset.filter;
+
+
+                if(
+                    scope ===
+                    "homeProjects"
+                    ||
+                    scope ===
+                    "projectGallery"
+                ){
+
+                    popularSelect(
+                        select,
+                        areasProjetos
+                    );
+
+                }
+
+                else if(
+                    scope ===
+                    "flowGallery"
+                ){
+
+                    popularSelect(
+                        select,
+                        (DATA.fluxos || [])
+                            .map(
+                                item =>
+                                item["Área"]
+                            )
+                    );
+
+                }
+
+                else if(
+                    scope ===
+                    "documentGallery"
+                ){
+
+                    popularSelect(
+                        select,
+                        (DATA.documentos || [])
+                            .map(
+                                item =>
+                                item["Área"]
+                            )
+                    );
+
+                }
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            '[data-year]'
+        )
+        .forEach(
+            select => {
+
+
+                let valores =
+                    [];
+
+
+                const scope =
+                    select
+                        .closest(
+                            ".filter-bar"
+                        )
+                        ?.dataset.filter;
+
+
+                if(
+                    scope ===
+                    "flowGallery"
+                ){
+
+                    valores =
+                        (DATA.fluxos || [])
+                            .map(
+                                item =>
+                                texto(
+                                    item["Data"]
+                                ).slice(-4)
+                            );
+
+                }
+
+
+                if(
+                    scope ===
+                    "documentGallery"
+                ){
+
+                    valores =
+                        (DATA.documentos || [])
+                            .map(
+                                item =>
+                                texto(
+                                    item[
+                                        "Data de Divulgação"
+                                    ]
+                                ).slice(-4)
+                            );
+
+                }
+
+
+                popularSelect(
+                    select,
+                    valores
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            '[data-type]'
+        )
+        .forEach(
+            select =>
+            popularSelect(
+                select,
+                (DATA.documentos || [])
+                    .map(
+                        item =>
+                        item["Tipo"]
+                    )
+            )
+        );
+
+}
+
+
+
+/* ==========================================================
+   EVENTOS DOS FILTROS
+   ========================================================== */
+
+
+document
+    .querySelectorAll(
+        ".filter-bar"
+    )
+    .forEach(
+        bar => {
+
+
+            const scope =
+                bar.dataset.filter;
+
+
+            bar.querySelectorAll(
+                "input, select"
+            )
+            .forEach(
+                campo => {
+
+                    campo.addEventListener(
+                        "input",
+                        function(){
+
+                            if(
+                                scope ===
+                                "homeProjects"
+                            ){
+
+                                aplicarFiltroProjetos(
+                                    scope
+                                );
+
+                            }
+
+                            else if(
+                                scope ===
+                                "projectGallery"
+                            ){
+
+                                aplicarFiltroProjetos(
+                                    scope
+                                );
+
+                            }
+
+                            else if(
+                                scope ===
+                                "flowGallery"
+                            ){
+
+                                aplicarFiltroFluxos();
+
+                            }
+
+                            else if(
+                                scope ===
+                                "documentGallery"
+                            ){
+
+                                aplicarFiltroDocumentos();
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+            const limpar =
+                bar.querySelector(
+                    ".filter-clear"
+                );
+
+
+            if(limpar){
+
+                limpar.addEventListener(
+                    "click",
+                    function(){
+
+                        bar.querySelectorAll(
+                            "input"
+                        )
+                        .forEach(
+                            input =>
+                            input.value = ""
+                        );
+
+
+                        bar.querySelectorAll(
+                            "select"
+                        )
+                        .forEach(
+                            select =>
+                            select.value = ""
+                        );
+
+
+                        if(
+                            scope ===
+                            "homeProjects"
+                        ){
+
+                            aplicarFiltroProjetos(
+                                scope
+                            );
+
+                        }
+
+                        else if(
+                            scope ===
+                            "projectGallery"
+                        ){
+
+                            aplicarFiltroProjetos(
+                                scope
+                            );
+
+                        }
+
+                        else if(
+                            scope ===
+                            "flowGallery"
+                        ){
+
+                            aplicarFiltroFluxos();
+
+                        }
+
+                        else if(
+                            scope ===
+                            "documentGallery"
+                        ){
+
+                            aplicarFiltroDocumentos();
+
+                        }
+
+                    }
+                );
+
+            }
+
+        }
+    );
+
+
+
+/* ==========================================================
+   RENDERIZAÇÃO GERAL
+   ========================================================== */
+
+
+function renderizarTudo(){
+
+    renderizarEquipe();
+
+    prepararFiltros();
+
+    renderizarHomeProjetos();
+
+    renderizarGaleriaProjetos();
+
+    renderizarFluxos();
+
+    renderizarDocumentos();
+
+}
+
+
+/* ==========================================================
+   MODO NOTURNO
+   ========================================================== */
+
+
+const themeButton =
+    document.getElementById(
+        "themeButton"
+    );
+
+
+themeButton.addEventListener(
+    "click",
+    function(){
+
+
+        document.body.classList.toggle(
+            "dark"
+        );
+
+
+        const dark =
+            document.body.classList.contains(
+                "dark"
+            );
+
+
+        themeButton.textContent =
+            dark ? "☾" : "☼";
+
+
+    }
+);
+
+
+/* ==========================================================
+   INICIALIZAÇÃO
+   ========================================================== */
+
+
+renderizarTudo();
+
+</script>
+
+
+</body>
+
+</html>
